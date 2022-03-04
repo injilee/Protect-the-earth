@@ -4,7 +4,7 @@ It is a game to catch bugs wandering around the Earth. <br/>
 
 
 # Link
-https://injilee.github.io/Protect-the-earth/
+https://injilee.github.io/Protect-the-earth
 
 # 스택
 - [x] vanilla JS
