@@ -11,9 +11,11 @@
 <body>
     <section class="setting-box">
         <div class="container">
-            <button class="startBtn">
-                <!-- <i class="fas fa-stop"></i> -->
+            <button class="startBtn active">
                 <i class="fas fa-play"></i>
+            </button>
+            <button class="stopBtn hidden">
+                <i class="fas fa-stop"></i>
             </button>
             <span class="countDown">00:00</span>
             <div class="counter">
@@ -22,10 +24,14 @@
         </div>
         <section class="play-station">
             <div class="items-fields">
-                <img class="bug-items" src="./resource/img/bug.png"></img>
-                <img class="carrot-items" src="./resource/img/carrot.png"></img>
             </div>
         </section>
+        <div class="popup hidden">
+            <button class="replayBtn">
+                <i class="fas fa-reply"></i>
+            </button>
+            <span></span>
+        </div>
     </section>
     <script src="./game.js"></script>
 </body>
