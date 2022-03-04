@@ -50,9 +50,6 @@ function replayGame(){
     stopBtn.classList.remove('visibility');
     popUp.classList.add('hidden');
     countDown.innerHTML =`00:00`;
-    while(fields.firstChild){
-        fields.removeChild(fields.firstChild);
-    }
     startGame();
     return countBug = 10;
 };
@@ -60,6 +57,9 @@ function replayGame(){
 function stopTimer(counter){
     clearInterval(counter);
     popUp.classList.remove('hidden');
+    while(fields.firstChild){
+        fields.removeChild(fields.firstChild);
+    }
 }
 
 // bug and carrot
