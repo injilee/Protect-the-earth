@@ -13,7 +13,7 @@ https://injilee.github.io/Protect-the-earth
 
 # 기능 구현
 Random Location
-- [x] 플레이 시작마다 벌레, 당근의 위치를 랜덤하게 놓기
+- [x] 플레이 시작마다 각각 벌레(10마리), 당근(10개)를 랜덤하게 위치
 
 Timer
 - [x] 10초 카운트 다운
