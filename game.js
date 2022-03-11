@@ -6,8 +6,16 @@ const stopBtn = document.querySelector('.stopBtn');
 const countDown = document.querySelector('.countDown');
 const popUp = document.querySelector('.setting-box .popup');
 const replayBtn = document.querySelector('.replayBtn');
+const span = document.querySelector('.popup span');
+
+const bgm = new Audio('./resource/sound/bg.mp3');
+const popAlert = new Audio('./resource/sound/alert.wav');
+const bugPull = new Audio('./resource/sound/bug_pull.mp3');
+const carrotPull = new Audio('./resource/sound/carrot_pull.mp3');
+const win = new Audio('./resource/sound/game_win.mp3');
 
 function startGame(){
+    playSound(bgm);
     bugCount.innerText = `10`;
     showItems();
     fields.addEventListener('click', selectBug);
@@ -31,6 +39,7 @@ function countTimer(){
             popUp.classList.remove('hidden');
             stopBtn.classList.add('visibility');
             span.innerText = `지구를 지켜야 해요!`;
+            playSound(popAlert);
         }
         countDown.innerHTML =`00:${String(count).padStart(2, 0)}`;
     }, 1000);
@@ -38,12 +47,13 @@ function countTimer(){
 }
 
 
-const span = document.querySelector('.popup span');
 
 function stopGame(){
     stopTimer(counter);
     stopBtn.classList.add('visibility');
     span.innerText = `지구를 지켜야 해요!`;
+    playSound(popAlert);
+    stopSound(bgm);
 }
 
 function replayGame(){
@@ -62,6 +72,15 @@ function stopTimer(counter){
     }
 }
 
+function playSound(sound){
+    sound.currentTime = 0;
+    sound.play();
+}
+
+function stopSound(sound){
+    sound.pause();
+}
+
 // bug and carrot
 const bugCount = document.querySelector('.setting-box .container .counter span');
 const fields = document.querySelector('.play-station .items-fields');
@@ -69,7 +88,6 @@ const bug = document.querySelectorAll('.bug-items');
 const carrot = document.querySelector('.carrot-items');
 
 function showItems(){
-    
     for(let i = 0;i < 10; i++){
         const addBug = document.createElement('img');
         addBug.classList.add('bug-items');
@@ -108,8 +126,9 @@ function selectBug(e){
     } else if (e.target.className == 'carrot-items'){
         stopGame();
     } else if (e.target.className == 'bug-items'){
-        bugCount.innerText = `${countBug}`;
+        bugCount.innerHTML = `${countBug}`;
         e.target.remove();
+        playSound(carrotPull);
     }
 }
 
@@ -118,6 +137,8 @@ function sucess(){
     span.innerText = `만세! 지구를 지켰다!`;
     stopTimer(counter);
     stopBtn.classList.add('visibility');
+    playSound(win);
+    stopSound(bgm);
 }
 
 startBtn.addEventListener('click', startGame);
