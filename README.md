@@ -3,7 +3,7 @@ It is a game to catch bugs wandering around the Earth. <br/>
 지구를 지키기 위해 버그를 잡는 게임입니다.
 
 
-# Link
+# Let's play game
 https://injilee.github.io/Protect-the-earth
 
 # 스택
@@ -31,8 +31,16 @@ Audio
 - [x] 게임 종료 시 배경음악 중지
 
 # 리팩토링
-- [ ] 중복 코드 제거
-- [ ] 상수 변수 추가
-- [ ] 함수 수정
-- [ ] JS 파일 모듈화
-- [ ] 변수명 수정
+- [x] 중복 코드 제거
+- [x] 상수 변수 추가
+- [x] 함수 수정
+- [x] JS 파일 모듈화
+- [x] 변수명 수정
+
+# 반응형 디자인
+- [x] 미디어쿼리 생성 및 수정
+- [ ] 브라우저 창 크기 변경 시 Field item 위치 자동 변경
+
+
+
+
