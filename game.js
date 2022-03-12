@@ -8,11 +8,21 @@ const popUp = document.querySelector('.setting-box .popup');
 const replayBtn = document.querySelector('.replayBtn');
 const span = document.querySelector('.popup span');
 
+const bugCount = document.querySelector('.setting-box .container .counter span');
+const fields = document.querySelector('.play-station .items-fields');
+const bug = document.querySelectorAll('.bug-items');
+const carrot = document.querySelector('.carrot-items');
+
 const bgm = new Audio('./resource/sound/bg.mp3');
 const popAlert = new Audio('./resource/sound/alert.wav');
 const bugPull = new Audio('./resource/sound/bug_pull.mp3');
 const carrotPull = new Audio('./resource/sound/carrot_pull.mp3');
 const win = new Audio('./resource/sound/game_win.mp3');
+
+let count = 11;
+let counter = null;
+let countBug = 10;
+
 
 function startGame(){
     playSound(bgm);
@@ -29,8 +39,6 @@ function startGame(){
     countTimer();
 };
 
-let count = 11;
-let counter = null;
 function countTimer(){
     counter = setInterval(() => {
         count = count - 1;
@@ -45,8 +53,6 @@ function countTimer(){
     }, 1000);
     return count = 11;
 }
-
-
 
 function stopGame(){
     stopTimer(counter);
@@ -70,6 +76,7 @@ function stopTimer(counter){
     while(fields.firstChild){
         fields.removeChild(fields.firstChild);
     }
+    stopSound(bgm);
 }
 
 function playSound(sound){
@@ -80,12 +87,6 @@ function playSound(sound){
 function stopSound(sound){
     sound.pause();
 }
-
-// bug and carrot
-const bugCount = document.querySelector('.setting-box .container .counter span');
-const fields = document.querySelector('.play-station .items-fields');
-const bug = document.querySelectorAll('.bug-items');
-const carrot = document.querySelector('.carrot-items');
 
 function showItems(){
     for(let i = 0;i < 10; i++){
@@ -100,7 +101,6 @@ function showItems(){
 
         fields.append(addBug);
     }
-
 
     for(let i = 0;i < 10; i++){
         const addCarrot = document.createElement('img');
@@ -117,7 +117,6 @@ function showItems(){
 
 }
 
-let countBug = 10;
 function selectBug(e){
     countBug = countBug - 1;
     if(countBug == 0){

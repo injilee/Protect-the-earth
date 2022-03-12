@@ -7,32 +7,24 @@
     <title>Protect the earth! 🌎</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+    <script defer src="./main.js"></script>
 </head>
 <body>
-    <section class="setting-box">
+    <section class="setting__box">
         <div class="container">
-            <button class="startBtn active">
+            <button class="startBtn">
                 <i class="fas fa-play"></i>
             </button>
-            <button class="stopBtn hidden">
-                <i class="fas fa-stop"></i>
-            </button>
-            <span class="countDown">00:00</span>
-            <div class="counter">
-                <span>10</span>
-            </div>
+            <span class="game__timer">00:00</span>
+            <span class="game__counter">0</span>
         </div>
-        <section class="play-station">
-            <div class="items-fields">
-            </div>
-        </section>
-        <div class="popup hidden">
+        <section class="play-station"></section>
+        <section class="popup hidden">
             <button class="replayBtn">
                 <i class="fas fa-reply"></i>
             </button>
-            <span></span>
-        </div>
+            <span class="popup__message"></span>
+        </section>
     </section>
-    <script src="./game.js"></script>
 </body>
 </html>
