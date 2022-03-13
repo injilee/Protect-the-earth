@@ -1,5 +1,7 @@
 'use strict';
 
+import PopUp from './popup.js';
+
 const GAME_TIMER_SEC = 10;
 const BUG_COUNT = 10;
 const ITEM_SIZE = 50;
@@ -9,10 +11,6 @@ const fieldRect = field.getBoundingClientRect();
 const gameBtn = document.querySelector('.startBtn');
 const gameTimer = document.querySelector('.game__timer');
 const gameCounter = document.querySelector('.game__counter');
-
-const popUp = document.querySelector('.popup');
-const popUpBtn = document.querySelector('.replayBtn');
-const popUpText = document.querySelector('.popup__message');
 
 const bgSound = new Audio('./resource/sound/bg.mp3');
 const alertSound = new Audio('./resource/sound/alert.wav');
