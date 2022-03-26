@@ -1,6 +1,7 @@
 'use strict';
 
 import PopUp from './popup.js';
+import Field from './field.js';
 
 const GAME_TIMER_SEC = 10;
 const BUG_COUNT = 10;
@@ -31,9 +32,9 @@ gameBtn.addEventListener('click', ()=>{
     }
 });
 
-popUpBtn.addEventListener('click', () =>{
+const replayBanner = new PopUp();
+replayBanner.setClickListener(() =>{
     startGame();
-    hidePopUp();
 });
 
 function clickField(e){
@@ -49,7 +50,7 @@ function clickField(e){
         if(score === BUG_COUNT){
             target.remove;
             sucessGame();
-            showPopUp('만세! 지구를 지켰다!');
+            replayBanner.showText('만세! 지구를 지켰다!');
         }
     } else if(target.matches('.carrot__items')){
         stopGame();
@@ -69,7 +70,7 @@ function stopGame(){
     start = false;
     hideStopBtn();
     stopTimer();
-    showPopUp('지구를 지켜야 해요!');
+    replayBanner.showText('지구를 지켜야 해요!');
     stopSound(bgSound);
     playSound(alertSound);
 }
@@ -121,15 +122,6 @@ function hideStopBtn(){
 
 function updateScoreBoard(){
     gameCounter.innerHTML = BUG_COUNT - score;
-}
-
-function showPopUp(messege){
-    popUpText.textContent = messege;
-    popUp.classList.remove('hidden');
-}
-
-function hidePopUp(){
-    popUp.classList.add('hidden');
 }
 
 function initGame(){
