@@ -11,8 +11,8 @@ export default class PopUp{
         });
     }
 
-    setClickListener(click){
-        this.onClick = click;
+    setClickListener(onclick){
+        this.onClick = onclick;
     }
 
     showText(messege){
