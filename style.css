@@ -165,6 +165,11 @@ button{
         height:35px;
     }
 
+    .startBtn, .stopBtn{
+        width:60px;
+        height:60px;
+    }
+
     .startBtn, .stopBtn i{
         -webkit-box-pack:center;
     }
