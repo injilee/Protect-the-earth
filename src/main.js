@@ -1,7 +1,6 @@
 'use strict';
 
 import PopUp from './popup.js';
-import Field from './field.js';
 
 const GAME_TIMER_SEC = 10;
 const BUG_COUNT = 10;
