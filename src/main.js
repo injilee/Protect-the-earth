@@ -1,28 +1,24 @@
 'use strict';
 
+import Field from './field.js';
 import PopUp from './popup.js';
 
 const GAME_TIMER_SEC = 10;
 const BUG_COUNT = 10;
-const ITEM_SIZE = 50;
 
-const field = document.querySelector('.play-station');
-const fieldRect = field.getBoundingClientRect();
 const gameBtn = document.querySelector('.startBtn');
 const gameTimer = document.querySelector('.game__timer');
 const gameCounter = document.querySelector('.game__counter');
 
 const bgSound = new Audio('./resource/sound/bg.mp3');
 const alertSound = new Audio('./resource/sound/alert.wav');
-const bugSound = new Audio('./resource/sound/bug_pull.mp3');
-const carrotSound = new Audio('./resource/sound/carrot_pull.mp3');
+// const bugSound = new Audio('./resource/sound/bug_pull.mp3');
 const winSound = new Audio('./resource/sound/game_win.mp3');
 
 let start = false;
 let counter = undefined;
 let score = 0;
 
-field.addEventListener('click', clickField);
 gameBtn.addEventListener('click', ()=>{
     if(start){
         stopGame();
@@ -36,22 +32,22 @@ replayBanner.setClickListener(() =>{
     startGame();
 });
 
-function clickField(e){
+const gameStaion = new Field(BUG_COUNT);
+gameStaion.setClickListener(clickField);
+
+function clickField(event){
     if(!start){
         return;
     }
-    const target = e.target;
-    if(target.matches('.bug__items')){
-        target.remove();
+    if(event === 'bug'){
         score++;
-        playSound(carrotSound);
         updateScoreBoard();
         if(score === BUG_COUNT){
             target.remove;
             sucessGame();
             replayBanner.showText('만세! 지구를 지켰다!');
         }
-    } else if(target.matches('.carrot__items')){
+    } else if(event === 'carrot'){
         stopGame();
     };
 }
@@ -95,7 +91,6 @@ function startTimer(){
 function stopTimer(){
     hideStopBtn();
     clearInterval(counter);
-    field.innerHTML = '';
 }
 
 function timerUpdate(time){
@@ -119,39 +114,14 @@ function hideStopBtn(){
     gameBtn.style.visibility = 'hidden';
 }
 
-function updateScoreBoard(){
-    gameCounter.innerHTML = BUG_COUNT - score;
-}
-
 function initGame(){
     score = 0;
-    gameCounter.innerHTML = BUG_COUNT;
-    addItem('bug__items', BUG_COUNT, './resource/img/bug.png');
-    addItem('carrot__items', BUG_COUNT, './resource/img/carrot.png');
+    gameCounter.innerText = BUG_COUNT;
+    gameStaion.init();
 }
 
-function addItem(className, count, imgSrc){
-    const x1 = 0;
-    const y1 = 0;
-    const x2 = fieldRect.width - ITEM_SIZE;
-    const y2 = fieldRect.height - ITEM_SIZE;
-
-    for(let i = 0;i < count; i++){
-        const items = document.createElement('img');
-        items.setAttribute('class', className);
-        items.setAttribute('src', imgSrc);
-        const x = randomLocation(x1, x2);
-        const y = randomLocation(y1, y2);
-        randomLocation(x, y);
-        items.style.left = `${x}px`;
-        items.style.top = `${y}px`;
-        items.style.transition = 'all ease-in-out 0.5s 0s';
-        field.append(items);
-    }
-}
-
-function randomLocation(x, y){
-    return Math.random() * y - x;
+function updateScoreBoard(){
+    gameCounter.innerText = BUG_COUNT - score;
 }
 
 function playSound(sound){
