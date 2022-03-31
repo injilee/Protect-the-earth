@@ -2,6 +2,7 @@
 
 import Field from './field.js';
 import PopUp from './popup.js';
+import * as sound from './sound.js';
 
 const GAME_TIMER_SEC = 10;
 const BUG_COUNT = 10;
@@ -9,11 +10,6 @@ const BUG_COUNT = 10;
 const gameBtn = document.querySelector('.startBtn');
 const gameTimer = document.querySelector('.game__timer');
 const gameCounter = document.querySelector('.game__counter');
-
-const bgSound = new Audio('./resource/sound/bg.mp3');
-const alertSound = new Audio('./resource/sound/alert.wav');
-// const bugSound = new Audio('./resource/sound/bug_pull.mp3');
-const winSound = new Audio('./resource/sound/game_win.mp3');
 
 let start = false;
 let counter = undefined;
@@ -41,7 +37,6 @@ function clickField(event){
         return;
     }
     if(event === 'bug'){
-        console.log(score);
         score++;
         updateScoreBoard();
         if(score === BUG_COUNT){
@@ -60,7 +55,7 @@ function startGame(){
     showStopBtn();
     startTimer();
     showTimerAndScore();
-    playSound(bgSound);
+    sound.playBg();
 }
 
 function stopGame(){
@@ -68,14 +63,14 @@ function stopGame(){
     hideStopBtn();
     stopTimer();
     replayBanner.showText('지구를 지켜야 해요!');
-    stopSound(bgSound);
-    playSound(alertSound);
+    sound.stopBg();
+    sound.playAlert();
 }
 
 function sucessGame(){
     stopTimer();
-    stopSound(bgSound);
-    playSound(winSound);
+    sound.stopBg();
+    sound.playWin();
 }
 
 function startTimer(){
@@ -93,6 +88,7 @@ function startTimer(){
 function stopTimer(){
     hideStopBtn();
     clearInterval(counter);
+    gameStaion.reset();
 }
 
 function timerUpdate(time){
@@ -124,13 +120,4 @@ function initGame(){
 
 function updateScoreBoard(){
     gameCounter.innerText = BUG_COUNT - score;
-}
-
-function playSound(sound){
-    sound.currentTime = 0;
-    sound.play();
-}
-
-function stopSound(sound){
-    sound.pause();
 }

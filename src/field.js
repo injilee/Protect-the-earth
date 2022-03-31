@@ -1,13 +1,16 @@
 'use strict';
 
+import * as sound from './sound.js';
+
 const ITEM_SIZE = 50;
-const carrotSound = new Audio('./resource/sound/carrot_pull.mp3');
 
 export default class Field{
     constructor(bugCount) {
         this.bugCount = bugCount;
         this.field = document.querySelector('.play-station');
         this.fieldRect = this.field.getBoundingClientRect();
+        // this.onClick = this.onClick.bind(this);
+        // this.field.addEventListener('click', (event) => this.onClick(event));
         this.field.addEventListener('click', this.onClick);
     }
 
@@ -15,11 +18,11 @@ export default class Field{
         this.clickField = clickField;
     }
 
-    onClick(event){
+    onClick = event => {
         const target = event.target;
         if(target.matches('.bug__items')) {
             target.remove();
-            playSound(carrotSound);
+            sound.playCarrot();
             this.clickField && this.clickField('bug');
         } else if(target.matches('.carrot__items')) {
             this.clickField && this.clickField('carrot');
@@ -52,11 +55,10 @@ export default class Field{
         }
     }
 
-}
+    reset(){
+        this.field.innerHTML = '';
+    }
 
-function playSound(sound){
-    sound.currentTime = 0;
-    sound.play();
 }
 
 function randomLocation(x, y){
