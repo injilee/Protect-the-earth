@@ -32,6 +32,7 @@ replayBanner.setClickListener(() =>{
     startGame();
 });
 
+// callback function
 const gameStaion = new Field(BUG_COUNT);
 gameStaion.setClickListener(clickField);
 
@@ -40,6 +41,7 @@ function clickField(event){
         return;
     }
     if(event === 'bug'){
+        console.log(score);
         score++;
         updateScoreBoard();
         if(score === BUG_COUNT){

@@ -11,8 +11,8 @@ export default class Field{
         this.field.addEventListener('click', this.onClick);
     }
 
-    setClickListener(onclick){
-        this.clickField = onclick;
+    setClickListener(clickField){
+        this.clickField = clickField;
     }
 
     onClick(event){
