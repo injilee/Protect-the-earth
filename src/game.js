@@ -1,26 +1,32 @@
 'use strict';
 
 import Field from './field.js';
+import PopUp from './popup.js';
 import * as sound from './sound.js';
 
 export default class Game{
-    constructor() {
+    constructor(bugCount, timerSec) {
+        this.bugCount = bugCount;
+        this.timerSec = timerSec;
+        
         this.gameBtn = document.querySelector('.startBtn');
         this.gameTimer = document.querySelector('.game__timer');
         this.gameCounter = document.querySelector('.game__counter');
         this.gameBtn.addEventListener('click', ()=>{
-            if(start){
-                stopGame();
+            if(this.started){
+                this.stop();
             } else {
-                startGame();
+                this.start();
             }
         });
 
-        this.gameStaion = new Field(BUG_COUNT);
+        this.gameStaion = new Field(bugCount);
         this.gameStaion.setClickListener(this.clickField);
 
+        this.replayBanner = new PopUp();
 
-        this.start = false;
+
+        this.started = false;
         this.counter = undefined;
         this.score = 0;
     }
@@ -29,94 +35,94 @@ export default class Game{
         this.onclick = onclick;
     }
 
-    clickField(event){
-        if(!start){
+    clickField = event => {
+        if(!this.started){
             return;
         }
         if(event === 'bug'){
-            score++;
-            updateScoreBoard();
-            if(score === BUG_COUNT){
-                target.remove;
-                sucessGame();
-                replayBanner.showText('만세! 지구를 지켰다!');
+            this.score++;
+            this.updateScoreBoard();
+            if(this.score === this.bugCount){
+                this.sucess();
+                this.replayBanner.showText('만세! 지구를 지켰다!');
             }
         } else if(event === 'carrot'){
-            stopGame();
+            this.stop();
         };
     }
 
     start(){
-        start = true;
-        initGame();
-        showStopBtn();
-        startTimer();
-        showTimerAndScore();
+        this.started = true;
+        this.initGame();
+        this.showStopBtn();
+        this.startTimer();
+        this.showTimerAndScore();
         sound.playBg();
     }
 
     stop(){
-        start = false;
-        hideStopBtn();
-        stopTimer();
-        replayBanner.showText('지구를 지켜야 해요!');
+        this.started = false;
+        this.hideStopBtn();
+        this.stopTimer();
+        this.replayBanner.showText('지구를 지켜야 해요!');
         sound.stopBg();
         sound.playAlert();
+        this.onclick && this.onclick('win');
     }
     
     sucess(){
-        stopTimer();
+        this.stopTimer();
         sound.stopBg();
         sound.playWin();
     }
     
     startTimer(){
-        let count = GAME_TIMER_SEC;
-        timerUpdate(count);
-        counter = setInterval(() => {
+        let count = this.timerSec;
+        this.timerUpdate(count);
+        this.counter = setInterval(() => {
             if(count <= 0){
-                stopGame();
+                this.stop();
                 return
             }
-            timerUpdate(--count);
+            this.timerUpdate(--count);
         }, 1000)
     }
     
     stopTimer(){
-        hideStopBtn();
-        clearInterval(counter);
-        gameStaion.reset();
+        this.hideStopBtn();
+        clearInterval(this.counter);
+        this.gameStaion.reset();
     }
     
     timerUpdate(time){
         const seconds = Math.floor(time % 60);
-        gameTimer.innerHTML =`00:${String(seconds).padStart(2, 0)}`;
+        this.gameTimer.innerHTML =`00:${String(seconds).padStart(2, 0)}`;
     }
     
     showTimerAndScore(){
-        gameTimer.style.visibility = 'visible';
-        gameCounter.style.visibility = 'visible';
+        this.gameTimer.style.visibility = 'visible';
+        this.gameCounter.style.visibility = 'visible';
     }
     
     showStopBtn(){
         const icon = document.querySelector('.fas');
         icon.classList.add('fa-stop');
         icon.classList.remove('fa-play');
-        gameBtn.style.visibility = 'visible';
+        this.gameBtn.style.visibility = 'visible';
     }
     
     hideStopBtn(){
-        gameBtn.style.visibility = 'hidden';
+        this.gameBtn.style.visibility = 'hidden';
     }
     
     initGame(){
-        score = 0;
-        gameCounter.innerText = BUG_COUNT;
-        gameStaion.init();
+        this.score = 0;
+        this.gameCounter.innerText = this.bugCount;
+        this.gameStaion.init();
     }
     
     updateScoreBoard(){
-        gameCounter.innerText = BUG_COUNT - score;
+        this.gameCounter.innerText = this.bugCount - this.score;
     }
 
 }

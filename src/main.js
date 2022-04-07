@@ -1,11 +1,10 @@
 'use strict';
 
-import Game from './game.js';
 import PopUp from './popup.js';
 import Game from './game.js';
 
-const GAME_TIMER_SEC = 10;
-const BUG_COUNT = 10;
+// const GAME_TIMER_SEC = 10;
+// const BUG_COUNT = 10;
 
 // const gameBtn = document.querySelector('.startBtn');
 // const gameTimer = document.querySelector('.game__timer');
@@ -15,7 +14,7 @@ const BUG_COUNT = 10;
 // let counter = undefined;
 // let score = 0;
 
-const gamePlay = new Game();
+const gamePlay = new Game(10, 10);
 gamePlay.setClickListener();
 
 // gameBtn.addEventListener('click', ()=>{
