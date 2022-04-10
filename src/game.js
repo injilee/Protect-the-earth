@@ -43,11 +43,10 @@ export default class Game{
             this.score++;
             this.updateScoreBoard();
             if(this.score === this.bugCount){
-                this.sucess();
-                this.replayBanner.showText('만세! 지구를 지켰다!');
+                this.sucess(true);
             }
         } else if(event === 'carrot'){
-            this.stop();
+            this.sucess(false);
         };
     }
 
@@ -64,16 +63,16 @@ export default class Game{
         this.started = false;
         this.hideStopBtn();
         this.stopTimer();
-        this.replayBanner.showText('지구를 지켜야 해요!');
         sound.stopBg();
         sound.playAlert();
-        this.onclick && this.onclick('win');
+        this.onclick && this.onclick('cancel');
     }
     
-    sucess(){
+    sucess(win){
         this.stopTimer();
         sound.stopBg();
         sound.playWin();
+        this.onclick && this.onclick(win ? 'win' : 'lose');
     }
     
     startTimer(){
