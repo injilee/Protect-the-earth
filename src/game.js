@@ -4,7 +4,29 @@ import Field from './field.js';
 import PopUp from './popup.js';
 import * as sound from './sound.js';
 
-export default class Game{
+// Builder Pattern
+export default class GameBuilder{
+    setTimerDuration(duration){
+        this.duration = duration;
+        return this;
+    }
+
+    setBugCount(num){
+        this.bugCount = num;
+        return this;
+    }
+
+    build(){
+        // console.log(this);
+        return new Game(
+            this.duration,
+            this.bugCount
+        )
+    }
+}
+
+
+class Game{
     constructor(bugCount, timerSec) {
         this.bugCount = bugCount;
         this.timerSec = timerSec;

@@ -1,9 +1,13 @@
 'use strict';
 
 import PopUp from './popup.js';
-import Game from './game.js';
+import GameBuilder from './game.js';
 
-const gamePlay = new Game(10, 10);
+const gamePlay = new GameBuilder()
+    .setTimerDuration(10)
+    .setBugCount(10)
+    .build();
+    
 gamePlay.setClickListener((reason) => {
     let message;
     switch(reason) {
