@@ -4,7 +4,13 @@ import * as sound from './sound.js';
 
 const ITEM_SIZE = 50;
 
-export default class Field{
+export const ItemName = Object.freeze({
+    bug : 'bug',
+    carrot : 'carrot',
+}
+);
+
+export class Field{
     constructor(bugCount) {
         this.bugCount = bugCount;
         this.field = document.querySelector('.play-station');
@@ -21,13 +27,13 @@ export default class Field{
     onClick = event => {
         const target = event.target;
         if(target.matches('.bug__items')) {
-            if(this.clickField && this.clickField('bug')){
+            if(this.clickField && this.clickField(ItemName.bug)){
                 return;
             }
             target.remove();
             sound.playCarrot();
         } else if(target.matches('.carrot__items')) {
-            this.clickField && this.clickField('carrot');
+            this.clickField && this.clickField(ItemName.carrot);
         }
     }
 

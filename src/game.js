@@ -1,15 +1,15 @@
 'use strict';
 
-import Field from './field.js';
+import {Field, ItemName} from './field.js';
 import PopUp from './popup.js';
 import * as sound from './sound.js';
 
 // Object.freeze
-export const Reason = {
+export const Reason = Object.freeze({
     cancle : 'cancle',
     win : 'win',
     lose : 'lose',
-}
+});
 
 // Builder Pattern
 export class GameBuilder{
@@ -43,7 +43,7 @@ class Game{
         this.gameCounter = document.querySelector('.game__counter');
         this.gameBtn.addEventListener('click', ()=>{
             if(this.started){
-                this.stop();
+                this.stop(Reason.cancle);
             } else {
                 this.start();
             }
@@ -68,14 +68,14 @@ class Game{
         if(!this.started){
             return true;
         }
-        if(event === 'bug'){
+        if(event === ItemName.bug){
             this.score++;
             this.updateScoreBoard();
             if(this.score === this.bugCount){
-                this.sucess(true);
+                this.stop(Reason.win);
             }
-        } else if(event === 'carrot'){
-            this.sucess(false);
+        } else if(event === ItemName.carrot){
+            this.stop(Reason.lose);
         };
     }
 
@@ -88,25 +88,13 @@ class Game{
         sound.playBg();
     }
 
-    stop(){
+    stop(reason){
         this.started = false;
         this.hideStopBtn();
         this.stopTimer();
         sound.stopBg();
-        sound.playAlert();
-        this.onclick && this.onclick(Reason.cancle);
-    }
-    
-    sucess(win){
-        this.started = false;
-        this.stopTimer();
-        sound.stopBg();
-        if(win){
-            sound.playWin();
-        } else {
-            sound.playBug();
-        }
-        this.onclick && this.onclick(win ? Reason.win : Reason.lose);
+        // console.log(reason);
+        this.onclick && this.onclick(reason);
     }
     
     startTimer(){
@@ -114,7 +102,7 @@ class Game{
         this.timerUpdate(count);
         this.counter = setInterval(() => {
             if(count <= 0){
-                this.stop();
+                this.stop(Reason.lose);
                 return
             }
             this.timerUpdate(--count);
