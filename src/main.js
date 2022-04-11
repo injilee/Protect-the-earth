@@ -1,7 +1,7 @@
 'use strict';
 
 import PopUp from './popup.js';
-import GameBuilder from './game.js';
+import {GameBuilder, Reason} from './game.js';
 
 const gamePlay = new GameBuilder()
     .setTimerDuration(10)
@@ -11,13 +11,13 @@ const gamePlay = new GameBuilder()
 gamePlay.setClickListener((reason) => {
     let message;
     switch(reason) {
-        case 'cancel':
+        case Reason.cancle :
             message = '다시 지구를 지키자!';
             break;
-        case 'lose' :
+        case Reason.lose :
             message = '지구를 지켜야 해요!';
             break;
-        case 'win' :
+        case Reason.win :
             message = '만세! 지구를 지켰다!';
             break;
         default :

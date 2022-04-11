@@ -4,8 +4,15 @@ import Field from './field.js';
 import PopUp from './popup.js';
 import * as sound from './sound.js';
 
+// Object.freeze
+export const Reason = {
+    cancle : 'cancle',
+    win : 'win',
+    lose : 'lose',
+}
+
 // Builder Pattern
-export default class GameBuilder{
+export class GameBuilder{
     setTimerDuration(duration){
         this.duration = duration;
         return this;
@@ -17,7 +24,7 @@ export default class GameBuilder{
     }
 
     build(){
-        // console.log(this);
+        console.log(this);
         return new Game(
             this.duration,
             this.bugCount
@@ -87,15 +94,19 @@ class Game{
         this.stopTimer();
         sound.stopBg();
         sound.playAlert();
-        this.onclick && this.onclick('cancel');
+        this.onclick && this.onclick(Reason.cancle);
     }
     
     sucess(win){
         this.started = false;
         this.stopTimer();
         sound.stopBg();
-        sound.playWin();
-        this.onclick && this.onclick(win ? 'win' : 'lose');
+        if(win){
+            sound.playWin();
+        } else {
+            sound.playBug();
+        }
+        this.onclick && this.onclick(win ? Reason.win : Reason.lose);
     }
     
     startTimer(){
