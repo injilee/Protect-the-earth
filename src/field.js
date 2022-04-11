@@ -21,9 +21,11 @@ export default class Field{
     onClick = event => {
         const target = event.target;
         if(target.matches('.bug__items')) {
+            if(this.clickField && this.clickField('bug')){
+                return;
+            }
             target.remove();
             sound.playCarrot();
-            this.clickField && this.clickField('bug');
         } else if(target.matches('.carrot__items')) {
             this.clickField && this.clickField('carrot');
         }
@@ -54,11 +56,6 @@ export default class Field{
             this.field.append(items);
         }
     }
-
-    reset(){
-        this.field.innerHTML = '';
-    }
-
 }
 
 function randomLocation(x, y){

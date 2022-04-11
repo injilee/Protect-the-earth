@@ -59,7 +59,7 @@ class Game{
 
     clickField = event => {
         if(!this.started){
-            return;
+            return true;
         }
         if(event === 'bug'){
             this.score++;
@@ -91,6 +91,7 @@ class Game{
     }
     
     sucess(win){
+        this.started = false;
         this.stopTimer();
         sound.stopBg();
         sound.playWin();
@@ -112,7 +113,6 @@ class Game{
     stopTimer(){
         this.hideStopBtn();
         clearInterval(this.counter);
-        this.gameStaion.reset();
     }
     
     timerUpdate(time){
