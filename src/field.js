@@ -59,8 +59,8 @@ export default class Field{
         const bugs = document.querySelectorAll('.bug__items');
         this.timer = setInterval(() => {
             bugs.forEach((bug) => {
-                const x1 = randomLocation(-20, 20);
-                const y1 = randomLocation(-20, 20);
+                const x1 = randomLocation(-50, 50);
+                const y1 = randomLocation(-50, 50);
 
                 let bugX = parseFloat(bug.style.left);
                 let bugY = parseFloat(bug.style.top);
@@ -75,7 +75,7 @@ export default class Field{
                 }
                 bug.style.transition = 'all ease 1000ms';
             })
-        }, 300);
+        }, 100);
     }
     moveStop(){
         clearInterval(this.timer);
