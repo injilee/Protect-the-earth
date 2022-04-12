@@ -7,13 +7,14 @@ import {GameBuilder, Reason} from './game.js';
 const gamePlay = new GameBuilder()
     .setTimerDuration(10)
     .setBugCount(10)
+    .setCarrotCount(10)
     .build();
     
 gamePlay.setClickListener((reason) => {
     let message;
     switch(reason) {
         case Reason.cancle :
-            message = '다시 지구를 지키자!';
+            message = '지구를 지켜줘요 😭';
             sound.playAlert();
             break;
         case Reason.lose :
@@ -21,7 +22,7 @@ gamePlay.setClickListener((reason) => {
             sound.playBug();
             break;
         case Reason.win :
-            message = '만세! 지구를 지켰다!';
+            message = '만세! 지구를 지켰다 🙌';
             sound.playWin();
             break;
         default :

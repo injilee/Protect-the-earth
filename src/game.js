@@ -1,6 +1,6 @@
 'use strict';
 
-import {Field, ItemName} from './field.js';
+import Field from './field.js';
 import PopUp from './popup.js';
 import * as sound from './sound.js';
 
@@ -22,20 +22,27 @@ export class GameBuilder{
         this.bugCount = num;
         return this;
     }
+    
+    setCarrotCount(num){
+        this.carrotCount = num;
+        return this;
+    }
 
     build(){
         console.log(this);
         return new Game(
             this.duration,
-            this.bugCount
+            this.bugCount,
+            this.carrotCount,
         )
     }
 }
 
 
 class Game{
-    constructor(bugCount, timerSec) {
+    constructor(bugCount, carrotCount, timerSec) {
         this.bugCount = bugCount;
+        this.carrotCount = carrotCount;
         this.timerSec = timerSec;
         
         this.gameBtn = document.querySelector('.startBtn');
@@ -49,7 +56,7 @@ class Game{
             }
         });
 
-        this.gameStaion = new Field(bugCount);
+        this.gameStaion = new Field(bugCount, carrotCount);
         this.gameStaion.setClickListener(this.clickField);
 
         this.replayBanner = new PopUp();
@@ -64,17 +71,21 @@ class Game{
         this.onclick = onclick;
     }
 
-    clickField = event => {
+    clickField = target =>{
         if(!this.started){
-            return true;
+            return;
         }
-        if(event === ItemName.bug){
+        if(target.matches('.bug__items')) {
+            target.remove();
+            sound.playCarrot();
+
             this.score++;
-            this.updateScoreBoard();
+            this.updateScoreBoard(this.score);
+
             if(this.score === this.bugCount){
                 this.stop(Reason.win);
             }
-        } else if(event === ItemName.carrot){
+        } else if(target.matches('.carrot__items')) {
             this.stop(Reason.lose);
         };
     }
@@ -93,6 +104,7 @@ class Game{
         this.hideStopBtn();
         this.stopTimer();
         sound.stopBg();
+        this.gameStaion.moveStop();
         // console.log(reason);
         this.onclick && this.onclick(reason);
     }
