@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Event Loop</h1>
+    <button type="button">Click!</button>
+    <script>
+        const btn = document.querySelector('button');
+
+        setTimeout(() => {
+            console.log('setTimeout1');
+            const promiseSetTimeout = new Promise((resolve, reject) => {
+            console.log('promiseSetTimeout');
+            resolve();
+            });
+
+            promiseSetTimeout.then(() => {
+                console.log('promiseSetTimeout then');
+            });
+        }, 0);
+        
+        // 전역 변수일 때와 순서가 위와 다름
+        // const promiseSetTimeout = new Promise((resolve, reject) => {
+        //     console.log('promiseSetTimeout');
+        //     resolve();
+        // });
+
+        // promiseSetTimeout.then(() => {
+        //     console.log('promiseSetTimeout then');
+        // });
+
+        const promise2 = new Promise((resolve, reject) => {
+            console.log('promise2');
+            resolve();
+        });
+
+        promise2.then(() => {
+            console.log('promise2 then');
+        });
+
+        setTimeout(() => {
+            console.log('setTimeout2');
+        }, 0);
+        
+        btn.addEventListener('click', () => {
+            console.log('addEventListener TaskQueue');
+        });
+        
+        for(let i =0;i < 10;i++){
+            console.log(i);
+        }
+    </script>
+</body>
+</html>
