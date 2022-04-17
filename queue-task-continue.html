@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .box{
+            width:120px;
+            height:120px;
+            background:yellow;
+            margin-top:20px;
+            border:1px solid rgb(161, 161, 161);
+        }
+    </style>
+</head>
+<body>
+    <h1>Queue Task Forever</h1>
+    <button type="button">Click!</button>
+    <div class="box"></div>
+    <script>
+        function handleClick(){
+            console.log('handleClick');
+            setTimeout(() => {
+                console.log('setTimeout');
+                handleClick();
+            }, 0)
+        }
+
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', ()=> {
+            handleClick();
+            console.log('🤩');
+        });
+
+
+        // const btn = document.querySelector('button');
+        // const box = document.querySelector('.box');
+        // btn.addEventListener('click', ()=> {
+        //     box.style.transition = 'transform 1s ease-in';
+        //     requestAnimationFrame(() => {
+        //         box.style.transform = 'translateX(800px)';
+        //         requestAnimationFrame(() => {
+        //             box.style.transform = 'translateX(500px)';
+        //         });
+        //     })
+        // });
+
+        // btn.addEventListener('click', ()=>{
+        //     setTimeout(() => {
+        //     btn.style.backgroundColor = 'green';
+        //     console.log('color!');
+        //     console.log('setTimeout!');
+        // }, 0);
+        //     for (var i = 0; i < 10000; i++) {
+        //     console.log(i);
+        // }
+        // console.log('after for!');
+        // })
+    </script>
+</body>
+</html>

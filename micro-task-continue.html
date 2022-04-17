@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .box{
+            width:120px;
+            height:120px;
+            background:yellow;
+            margin-top:20px;
+            border:1px solid rgb(161, 161, 161);
+        }
+    </style>
+</head>
+<body>
+    <h1>Queue Task Forever</h1>
+    <button type="button">Click!</button>
+    <div class="box"></div>
+    <script>
+        function handleClick(){
+            console.log('handleClick');
+            Promise.resolve(0)
+            .then(()=>{
+                console.log('then');
+                handleClick();
+            });
+        }
+
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', ()=> {
+            handleClick();
+        });
+
+    </script>
+</body>
+</html>
