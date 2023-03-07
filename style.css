@@ -26,6 +26,9 @@ button {
 }
 .startBtn,
 .stopBtn {
+   display: flex;
+   justify-content: center;
+   align-items: center;
    width: 60px;
    height: 60px;
    background-color: #fffeccf1;
