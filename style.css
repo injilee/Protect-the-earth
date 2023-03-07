@@ -38,6 +38,7 @@ button {
 }
 .startBtn,
 .stopBtn i {
+   margin: 0 auto;
    font-size: 38px;
    color: #272720;
 }
